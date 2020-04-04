@@ -535,7 +535,7 @@ try {
               if (!ignore) msg.channel.send(musicbot.note("fail", "Unable to complete playback! Google API quota exceeded!"));
               return;
             } else {
-              if (!ignore) msg.channel.send(musicbot.note("fail", "Unknown error occurred! Playback could not be completed, check the logs for more details."));
+              if (!ignore) msg.channel.send(musicbot.note("fail", "Unknown error occurred! Playback could not be completed, check the logs for more details. Or you can send an email to us (contact@dariox.club) with the Subject starting with 'MusicPlugin'"));
               return console.log(err);
             }
           });
