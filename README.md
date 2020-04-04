@@ -1,9 +1,9 @@
 # Please read the entire README before doing anything.
 
 ## A Little Notice:
-This npm package was originally created by (Darko Pendragon)[https://github.com/darkopendragon] and the code contributers on the orignal repo. All changes/optimisations from here on out is made by the developers from (DARiOX)[https://dariox.club]
+This npm package was originally created by [Darko Pendragon](https://github.com/darkopendragon) and the code contributers on the orignal repo. All changes/optimisations from here on out is made by the developers from [DARiOX](https://dariox.club)
 
-If you have any problems with up please (send an email)[mailto:contact@dariox.club].
+If you have any problems with up please [send an email](mailto:contact@dariox.club) or [send us a tweet](https://twitter.com/darioxdotclub)
 
 # Discord MusicBot Addon
 ***  
