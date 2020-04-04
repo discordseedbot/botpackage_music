@@ -1,11 +1,9 @@
+# Please read the entire README before doing anything.
+
 ## A Little Notice:
-Recently most members of my Discord server have been banned from it. All bans have been removed but we obvouisly can't track you all down and shove invite links at you. So, feel free to re-join the server: [https://discordapp.com/invite/JHMtwhG](https://discordapp.com/invite/JHMtwhG)
-<div align="center">
-  <p>
-    <a href="https://nodei.co/npm/discord.js-musicbot-addon
-/"><img src="https://nodei.co/npm/discord.js-musicbot-addon.png?downloads=true&stars=true" alt="NPM info" /></a>
-  </p>
-</div>  
+This npm package was originally created by (Darko Pendragon)[https://github.com/darkopendragon] and the code contributers on the orignal repo. All changes/optimisations from here on out is made by the developers from (DARiOX)[https://dariox.club]
+
+If you have any problems with up please (send an email)[mailto:contact@dariox.club].
 
 # Discord MusicBot Addon
 ***  
@@ -45,7 +43,7 @@ Required for voice. Discord.js _prefers_ node-opus.
 
 __Installation:__  
 * `npm install discord.js-musicbot-addon`  
-If you have troubles installing, see [this link](https://github.com/DarkoPendragon/discord.js-musicbot-addon/wiki/Installation-&-Troubleshooting) or [join the discord server](https://discordapp.com/invite/JHMtwhG).
+If you have troubles installing, see [this link](https://github.com/DarkoPendragon/discord.js-musicbot-addon/wiki/Installation-&-Troubleshooting) or [join the SeedBot Discord Server](https://seedbot.xyz?discord)
 Note that the NPM version will be *slightly behind* the GitHub version.
 
 # Examples
