@@ -200,6 +200,16 @@ try {
             exclude: Boolean((options && options.deleteQueue && options.deleteQueue.exclude)),
             masked: "deletequeue"
         };
+        this.disconnect = {
+            enabled: (options.disconnect == undefined ? true : (options.disconnect && typeof options.disconnect.enabled !== 'undefined' ? options.disconnect && options.disconnect.enabled : true)),
+            run: "disconnectFunction",
+            alt: (options && options.disconnect && options.disconnect.alt) || [],
+            help: (options && options.disconnect && options.disconnect.help) || "Disconnect From voice channel and clear queue",
+            name: (options && options.disconnect && options.disconnect.name) || "disconnect",
+            usage: (options && options.disconnect && options.disconnect.usage) || null,
+            exclude: Boolean((options && options.deleteQueue && options.deleteQueue.exclude)),
+            masked: "disconnect"
+        };
 
         this.embedColor = (options && options.embedColor) || 'GREEN';
         this.anyoneCanSkip = (options && typeof options.anyoneCanSkip !== 'undefined' ? options && options.anyoneCanSkip : false);
@@ -208,6 +218,7 @@ try {
         this.anyoneCanPause = (options && typeof options.anyoneCanPause !== 'undefined' ? options && options.anyoneCanPause : false);
         this.anyoneCanAdjust = (options && typeof options.anyoneCanAdjust !== 'undefined' ? options && options.anyoneCanAdjust : false);
         this.youtubeKey = (options && options.youtubeKey);
+		this.errorChannel = (options && options.errorChannel) || false;
         this.botPrefix = (options && options.botPrefix) || "!";
         this.defVolume = (options && options.defVolume) || 50;
         if (options.maxQueueSize === 0) {
@@ -605,7 +616,7 @@ try {
         if (msg.channel.permissionsFor(msg.guild.me)
           .has('EMBED_LINKS')) {
           const embed = new Discord.RichEmbed();
-          embed.setAuthor("Commands", client.user.avatarURL());
+          embed.setAuthor("Commands", client.user.avatarURL);
           embed.setDescription(`Use \`${prefix}${musicbot.help.name} command name\` for help on usage. Anyone with a role named \`${musicbot.djRole}\` can use any command.`);
           // embed.addField(musicbot.helpCmd, musicbot.helpHelp);
           const newCmds = Array.from(musicbot.commands);
@@ -673,7 +684,7 @@ try {
           const embed = new Discord.RichEmbed();
           command = musicbot.commands.get(command) || musicbot.aliases.get(command);
           if (command.exclude) return msg.channel.send(musicbot.note('fail', `${suffix} is not a valid command!`));
-          embed.setAuthor(command.name, msg.client.user.avatarURL());
+          embed.setAuthor(command.name, msg.client.user.avatarURL);
           embed.setDescription(command.help);
           if (command.alt.length > 0) embed.addField(`Aliases`, command.alt.join(", "), musicbot.inlineEmbeds);
           if (command.usage && typeof command.usage == "string") embed.addField(`Usage`, command.usage.replace(/{{prefix}})/g, prefix), musicbot.inlineEmbeds);
@@ -780,7 +791,7 @@ try {
         .has('EMBED_LINKS')) {
         const embed = new Discord.RichEmbed();
         try {
-          embed.setAuthor('Now Playing', client.user.avatarURL());
+          embed.setAuthor('Now Playing', client.user.avatarURL);
           var songTitle = queue.last.title.replace(/\\/g, '\\\\')
             .replace(/\`/g, '\\`')
             .replace(/\*/g, '\\*')
@@ -850,7 +861,7 @@ try {
         let video = queue.songs.find(s => s.position == parseInt(suffix) - 1);
         if (!video) return msg.channel.send(musicbot.note("fail", "Couldn't find that video."));
         const embed = new Discord.RichEmbed()
-        .setAuthor('Queued Song', client.user.avatarURL())
+        .setAuthor('Queued Song', client.user.avatarURL)
         .setColor(musicbot.embedColor)
         .addField(video.channelTitle, `[${video.title.replace(/\\/g, '\\\\').replace(/\`/g, '\\`').replace(/\*/g, '\\*').replace(/_/g, '\\_').replace(/~/g, '\\~').replace(/`/g, '\\`')}](${video.url})`, musicbot.inlineEmbeds)
         .addField("Queued On", video.queuedOn, musicbot.inlineEmbeds)
@@ -874,7 +885,7 @@ try {
           });
 
           const embed = new Discord.RichEmbed();
-          embed.setAuthor('Queued Songs', client.user.avatarURL());
+          embed.setAuthor('Queued Songs', client.user.avatarURL);
           embed.setColor(musicbot.embedColor);
           embed.setFooter(`Page ${page} of ${pages.length}`);
           embed.setDescription(pages[page - 1]);
@@ -904,14 +915,14 @@ try {
           try {
             var newSongs = musicbot.queues.get(msg.guild.id).songs.map((video, index) => (`**${video.position + 1}:** __${video.title.replace(/\\/g, '\\\\').replace(/\`/g, '\\`').replace(/\*/g, '\\*').replace(/_/g, '\\_').replace(/~/g, '\\~').replace(/`/g, '\\`')}__`)).join('\n\n');
             const embed = new Discord.RichEmbed();
-            embed.setAuthor('Queued Songs', client.user.avatarURL());
+            embed.setAuthor('Queued Songs', client.user.avatarURL);
             embed.setColor(musicbot.embedColor);
             embed.setDescription(newSongs);
             embed.setFooter(`Page 1 of 1`, msg.author.displayAvatarURL);
             return msg.channel.send(embed);
           } catch (e) {
             console.log("["+msg.guild.id+"] " + e);
-            return msg.channel.send(msicbot.note("fail", "Something went wrong mapping out the queue! Please delete the queue if this persists."));
+            return msg.channel.send(musicbot.note("fail", "Something went wrong mapping out the queue! Please delete the queue if this persists."));
           };
         };
       };
@@ -1060,7 +1071,7 @@ try {
                         videos[song_number].requester = msg.author.id;
                         videos[song_number].position = queue.songs.length ? queue.songs.length : 0;
                         var embed = new Discord.RichEmbed();
-                        embed.setAuthor('Adding To Queue', client.user.avatarURL());
+                        embed.setAuthor('Adding To Queue', client.user.avatarURL);
                         var songTitle = videos[song_number].title.replace(/\\/g, '\\\\')
                         .replace(/\`/g, '\\`')
                         .replace(/\*/g, '\\*')
@@ -1200,7 +1211,7 @@ try {
                         videos[song_number].requester = msg.author.id;
                         videos[song_number].position = queue.songs.length ? queue.songs.length : 0;
                         var embed = new Discord.RichEmbed();
-                        embed.setAuthor('Adding To Queue', client.user.avatarURL());
+                        embed.setAuthor('Adding To Queue', client.user.avatarURL);
                         var songTitle = videos[song_number].title.replace(/\\/g, '\\\\')
                         .replace(/\`/g, '\\`')
                         .replace(/\*/g, '\\*')
@@ -1455,11 +1466,11 @@ try {
             let req = client.users.get(video.requester);
             if (msg.channel.permissionsFor(msg.guild.me).has('EMBED_LINKS')) {
               const embed = new Discord.RichEmbed()
-              .setTitle("Now Playing", `${req !== null ? req.displayAvatarURL() : null}`)
+              .setTitle("Now Playing", `${req !== null ? req.displayAvatarURL : null}`)
               .setThumbnail(`https://img.youtube.com/vi/${video.id}/maxresdefault.jpg`)
               .setDescription(`[${video.title.replace(/\\/g, '\\\\').replace(/\`/g, '\\`').replace(/\*/g, '\\*').replace(/_/g, '\\_').replace(/~/g, '\\~').replace(/`/g, '\\`')}](${video.url}) by [${video.channelTitle}](${video.channelURL})`)
               .setColor(musicbot.embedColor)
-              .setFooter(`Requested by ${req !== null ? req.username : "Unknown User"}`, `${req !== null ? req.displayAvatarURL() : null}`);
+              .setFooter(`Requested by ${req !== null ? req.username : "Unknown User"}`, `${req !== null ? req.displayAvatarURL : null}`);
               msg.channel.send({embed});
             } else {
               msg.channel.send(musicbot.note("note", `\`${video.title.replace(/`/g, "''")}\` by \`${video.channelURL.replace(/`/g, "''")}\``))

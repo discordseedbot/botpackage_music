@@ -64,6 +64,7 @@ The options you can pass in `music.start(client, {options})` and their types is 
 | bigPicture | Boolean | Whether to use a large (true) image or small (false) for embeds. | false |
 | maxQueueSize | Number | Max queue size allowed. Defaults 100. Set to 0 for unlimited. | 50 |
 | defVolume | Number | The default volume of music. 1 - 200. | 50 |
+| errorChannel (in development) | Number | The discord channel of where you want bot errors to go. Make sure the discord bot is in that server and has permission to send messages there. | NaN |
 | anyoneCanSkip | Boolean | Whether or not anyone can skip. | false |
 | messageHelp | Boolean | Whether to message the user on help command usage. If it can't, it will send it in the channel like normal. | false |
 | botAdmins | Object/Array | An array of Discord user ID's to be admins as the bot. They will ignore permissions for the bot. | [ ] |
