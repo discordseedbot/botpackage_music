@@ -1,7 +1,7 @@
 # Please read the entire README before doing anything.
 
 ## A Little Notice:
-This npm package was originally created by [Darko Pendragon](https://github.com/darkopendragon) and the code contributers on the orignal repo. All changes/optimisations from here on out is made by the developers from [DARiOX](https://dariox.club)
+This package was originally created by [Darko Pendragon](https://github.com/darkopendragon) and the code contributors on the original repo. All changes/optimisations from here on out is made by the developers from [DARiOX](https://dariox.club)
 
 If you have any problems with up please [send an email](mailto:contact@dariox.club) or [send us a tweet](https://twitter.com/darioxdotclub)
 
@@ -42,13 +42,13 @@ Allows the bot to join voice as well as speak.
 Required for voice. Discord.js _prefers_ node-opus.  
 
 __Installation:__  
-* `npm install discord.js-musicbot-addon`  
-If you have troubles installing, see [this link](https://github.com/DarkoPendragon/discord.js-musicbot-addon/wiki/Installation-&-Troubleshooting) or [join the SeedBot Discord Server](https://seedbot.xyz?discord)
+* `npm i seedbot_addonmusic@latest`  
+If you have troubles installing [join the SeedBot Discord Server](https://seedbot.xyz?discord)
 Note that the NPM version will be *slightly behind* the GitHub version.
 
 # Examples
 ***  
-See [this page](https://github.com/DarkoPendragon/discord.js-musicbot-addon/blob/master/examples/examples.md) on the repo for examples.
+See [this page](https://github.com/discordseedbot/seedbot_addonmusic/blob/master/examples/examples.md) on the repo for examples.
 
 # Options & Config.
 ***
@@ -93,7 +93,7 @@ The options you can pass in `music.start(client, {options})` and their types is 
 // Exmaple Map Structure
 {serverID: { prefix: "!" } }
 ```
-See [examples](https://github.com/DarkoPendragon/discord.js-musicbot-addon/blob/master/examples/examples.md) for more info.
+See [examples](https://github.com/discordseedbot/seedbot_addonmusic/blob/master/examples/examples.md) for more info.
 ## Cooldown
 | Option | Type | Description | Default |  
 | --- | --- | --- | --- |
