@@ -200,16 +200,6 @@ try {
             exclude: Boolean((options && options.deleteQueue && options.deleteQueue.exclude)),
             masked: "deletequeue"
         };
-        this.disconnect = {
-            enabled: (options.disconnect == undefined ? true : (options.disconnect && typeof options.disconnect.enabled !== 'undefined' ? options.disconnect && options.disconnect.enabled : true)),
-            run: "disconnectFunction",
-            alt: (options && options.disconnect && options.disconnect.alt) || [],
-            help: (options && options.disconnect && options.disconnect.help) || "Disconnect From voice channel and clear queue",
-            name: (options && options.disconnect && options.disconnect.name) || "disconnect",
-            usage: (options && options.disconnect && options.disconnect.usage) || null,
-            exclude: Boolean((options && options.deleteQueue && options.deleteQueue.exclude)),
-            masked: "disconnect"
-        };
 
         this.embedColor = (options && options.embedColor) || 'GREEN';
         this.anyoneCanSkip = (options && typeof options.anyoneCanSkip !== 'undefined' ? options && options.anyoneCanSkip : false);
@@ -1616,8 +1606,8 @@ try {
         await musicbot.loadCommand(musicbot.loop);
         await musicbot.loadCommand(musicbot.clearqueue);
         await musicbot.loadCommand(musicbot.np);
-        await musicbot.loadCommand(musicbot.shuffle)
-        await musicbot.loadCommand(musicbot.deleteQueue)
+        await musicbot.loadCommand(musicbot.shuffle);
+        await musicbot.loadCommand(musicbot.deleteQueue);
       } catch (e) {
         console.error(new Error(e));
       };
