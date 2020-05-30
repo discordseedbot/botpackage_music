@@ -258,15 +258,37 @@ try {
         this.recentTalk = new Set();
       }
 
+	  errGen(client,msg,err) {
+	  	  console.error(`[${msg.guild.name}] [${msg.content}] ` + err.stack );
+		  if (!this.errorChannel) {
+			  // not set
+			  if (client.channels.get(this.errorChannel) !== undefined) {
+				  // can access channel
+				  let errorSend = new Discord.RichEmbed()
+					  .setColor(require("./../functions/main.js").randomhexcolor())
+					  .setTitle("Command Error")
+					  .setFooter(msg.content)
+					  .setTimestamp()
+					  .setDescription(err)
+					  .addField("Guild ID",msg.member.guild.id)
+					  .addField("User Info","<@"+msg.member.id+">")
+				  client.channels.get(this.errorChannel).send(errorSend);
+
+				  message.channel.send("Something Went Wrong, A Bug Report has been sent to the developers.\nThey may contact you.");
+			  }
+
+		  }
+	  }
+
       checkVoice(mem, bot) {
         return new Promise((resolve, reject) => {
           if (!mem || !bot) reject("invalid args");
           if (!mem.voice.channel) reject("You're not in a voice channel!");
           if (bot.voice.channel) {
-            if (bot.voice.channel.id == mem.voice.channel.id) resolve(mem.voice.channel)
+            if (bot.voiceChannelID == mem.voiceChannelID) resolve(mem.voiceChannel)
             else reject("You're in a different voice channel!")
           } else {
-            resolve(mem.voice.channel);
+            resolve(mem.voiceChannel);
           };
         });
       };
@@ -586,7 +608,7 @@ try {
                   embed
                 });
               } catch (e) {
-                console.error(`[${msg.guild.name}] [playCmd] ` + e.stack);
+				errGen(client,msg,e);
               };
             } else {
               try {
@@ -598,7 +620,7 @@ try {
                 .replace(/`/g, '\\`');
                 msg.channel.send(`Now Playing: **${songTitle}**\nRequested By: ${client.users.get(res.requester).username}\nQueued On: ${res.queuedOn}`)
               } catch (e) {
-                console.error(`[${msg.guild.name}] [npCmd] ` + e.stack);
+                errGen(client,msg,e);
               };
             };
           };
@@ -810,7 +832,7 @@ try {
             embed
           });
         } catch (e) {
-          console.error(`[${msg.guild.name}] [npCmd] ` + e.stack);
+          errGen(client,msg,e);
         };
       } else {
         try {
@@ -822,7 +844,7 @@ try {
             .replace(/`/g, '\\`');
           msg.channel.send(`Now Playing: **${songTitle}**\nRequested By: ${client.users.get(queue.last.requester).username}\nQueued On: ${queue.last.queuedOn}`)
         } catch (e) {
-          console.error(`[${msg.guild.name}] [npCmd] ` + e.stack);
+          errGen(client,msg,e);
         };
       }
     };
