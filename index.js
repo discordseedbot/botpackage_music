@@ -11,7 +11,10 @@ try {
       try {
         require.resolve(name);
         return true;
-      } catch(e){}
+      } catch(e){
+        // ERROR
+        console.error(e)
+      }
       return false;
     };
     if (moduleAvailable("ffmpeg-binaries")) console.error(new Error("[MUSIC] ffmpeg-binaries was found, this will likely cause problems"));
@@ -247,6 +250,31 @@ try {
         this.recentTalk = new Set();
       }
 
+	  errGen(client,msg,err) {
+	  	  console.error(`[${msg.guild.name}] [${msg.content}] ` + err.stack );
+		  if (this.errorChannel !== undefined) {
+			  // not set
+			  if (client.channels.cache.get(this.errorChannel) !== undefined) {
+				  // can access channel
+				  let errorSend = new Discord.RichEmbed()
+					  .setColor(Math.floor(Math.random() * 16777215).toString(16))
+					  .setTitle("Command Error")
+					  .setFooter(msg.content)
+					  .setTimestamp()
+					  .setDescription(err)
+					  .addField("Guild ID",msg.member.guild.id)
+					  .addField("User Info","<@"+msg.member.id+">")
+				  client.channels.cache.get(this.errorChannel).send(errorSend);
+
+				  message.channel.send("Something Went Wrong, A Bug Report has been sent to the developers.\nThey may contact you.");
+			  }
+
+		  } else {
+        message.channel.send("An Internal Error Occoured, Sorry!")
+        console.error(err)
+      }
+	  }
+
       checkVoice(mem, bot) {
         return new Promise((resolve, reject) => {
           if (!mem || !bot) reject("invalid args");
@@ -272,7 +300,7 @@ try {
           try {
             var songs  = typeof obj == "object" ? Array.from(obj.songs) : [];
           } catch (e) {
-            console.log("aidjbasiubd");
+            musicbot.errGen(client, msg, e);
           };
           try {
             if (!songs || songs.length <= 0 || typeof obj.songs != "object") {
@@ -290,7 +318,8 @@ try {
                 newsongs.push(s);
                 mm++;
               } catch (e) {
-                console.log(e);
+                // ERROR
+                musicbot.errGen(client, msg, e);
               };
             });
           } catch (e) {
@@ -575,7 +604,7 @@ try {
                   embed
                 });
               } catch (e) {
-                console.error(`[${msg.guild.name}] [playCmd] ` + e.stack);
+				        musicbot.errGen(client,msg,e);
               };
             } else {
               try {
@@ -587,7 +616,7 @@ try {
                 .replace(/`/g, '\\`');
                 msg.channel.send(`Now Playing: **${songTitle}**\nRequested By: ${client.users.cache.get(res.requester).username}\nQueued On: ${res.queuedOn}`)
               } catch (e) {
-                console.error(`[${msg.guild.name}] [npCmd] ` + e.stack);
+                musicbot.errGen(client,msg,e);
               };
             };
           };
@@ -799,7 +828,7 @@ try {
             embed
           });
         } catch (e) {
-          console.error(`[${msg.guild.name}] [npCmd] ` + e.stack);
+          musicbot.errGen(client,msg,e);
         };
       } else {
         try {
@@ -811,7 +840,7 @@ try {
             .replace(/`/g, '\\`');
           msg.channel.send(`Now Playing: **${songTitle}**\nRequested By: ${client.users.cache.get(queue.last.requester).username}\nQueued On: ${queue.last.queuedOn}`)
         } catch (e) {
-          console.error(`[${msg.guild.name}] [npCmd] ` + e.stack);
+          musicbot.errGen(client,msg,e);
         };
       }
     };
@@ -918,7 +947,7 @@ try {
     };
 
     musicbot.searchFunction = (msg, suffix, args) => {
-      if (msg.member.voice.channel === undefined) return msg.channel.send(musicbot.note('fail', `You're not in a voice channel.`));
+      if (!msg.member.voice.channel) return msg.channel.send(musicbot.note('fail', `You're not in a voice channel.`));
       let vc = client.voice.connections.find(val => val.channel.guild.id == msg.member.guild.id)
       if (vc && vc.channel.id != msg.member.voice.channel.id) return msg.channel.send(musicbot.note('fail', `You must be in the same voice channel as me.`));
       let us = `${msg.guild.id}-${msg.author.id}`;
@@ -1480,13 +1509,13 @@ try {
             })
 
             connection.on('error', (error) => {
-              console.error(error);
+              musicbot.errGen(client, msg, e);
               if (msg && msg.channel) msg.channel.send(musicbot.note('fail', `Something went wrong with the connection. Retrying queue...`));
               musicbot.executeQueue(msg, queue);
             });
 
             dispatcher.on('error', (error) => {
-              console.error(error);
+              musicbot.errGen(client, msg, e);
               if (msg && msg.channel) msg.channel.send(musicbot.note('fail', `Something went wrong while playing music. Retrying queue...`));
               musicbot.executeQueue(msg, queue);
             });
@@ -1564,7 +1593,8 @@ try {
         .replace(/~/g, '\\~')
         .replace(/`/g, '\\`');
       } else {
-        console.error(new Error(`${type} was an invalid type`));
+        musicbot.errGen(client, msg, `${type} was an invalid type`);
+        //console.error(new Error(`${type} was an invalid type`));
       }
     };
 
