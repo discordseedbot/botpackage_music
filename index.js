@@ -2,6 +2,7 @@ const ytdl = require('ytdl-core');
 const {YTSearcher} = require('ytsearcher');
 const ytpl = require('ytpl');
 const Discord = require('discord.js');
+const { RichEmbed } = require("discord.js");
 const PACKAGE = require('./package.json');
 
 exports.start = (client, options) => {
@@ -622,7 +623,7 @@ try {
           };
           if (queue.songs.length === 1 || !client.voice.connections.find(val => val.channel.guild.id == msg.guild.id)) musicbot.executeQueue(msg, queue);
         }).catch((res) => {
-          console.log(new Error(res));
+          console.log(res);
         });
       };
     };
