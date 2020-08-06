@@ -9,6 +9,8 @@ const client = new Discord.Client();
 // functions and data.
 client.music = require("./index.js");
 
+console.log(require("./package.json").dependencies)
+
 // Now we start the music module.
 client.music.start(client, {
   // Set the api key used for YouTube.
