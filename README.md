@@ -5,6 +5,13 @@ This package was originally created by [Darko Pendragon](https://github.com/dark
 
 If you have any problems with up please [send an email](mailto:contact@dariox.club) or [send us a tweet](https://twitter.com/darioxdotclub)
 
+<div align="center">
+  <p>
+    <a href="https://nodei.co/npm/seedbot_addonmusic
+/"><img src="https://nodei.co/npm/seedbot_addonmusic.png?downloads=true&stars=true" alt="NPM info" /></a>
+  </p>
+</div> 
+
 # Discord MusicBot Addon
 ***  
 This module is a *somewhat* simple Node.js based music extension/bot for Discord.js projects using YouTube. This was originally an update of an older addon for newer versions of Discord.js but not serves as it's own module.   
