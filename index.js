@@ -1447,6 +1447,7 @@ try {
 		  const voiceConnection = client.voice.connections.find(val => val.channel.guild.id == msg.guild.id);
           if (musicbot) {
             if (msg.member.voice.channel && msg.member.voice.channel.joinable) {
+				msg.member.voice.channel.join()
                 .then(connection => {
                   resolve(connection);
                 })
