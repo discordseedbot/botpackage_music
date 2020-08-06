@@ -1,11 +1,9 @@
+# Please read the entire README before doing anything.
+
 ## A Little Notice:
-This project is NO LONGER SUPPORTED and does NOT function. Do not use this. This repo serves as and archive of my work. If anyone wishes to re-upload this project, re-do it, or use it in any way you have my full permission. I am no longer supporting or working on this or any other projects not listed on my personal Discord or website anymore. You may still join the Discord [by clicking here](https://discord.gg/JHMtwhG).
-<div align="center">
-  <p>
-    <a href="https://nodei.co/npm/discord.js-musicbot-addon
-/"><img src="https://nodei.co/npm/discord.js-musicbot-addon.png?downloads=true&stars=true" alt="NPM info" /></a>
-  </p>
-</div>  
+This package was originally created by [Darko Pendragon](https://github.com/darkopendragon) and the code contributors on the original repo. All changes/optimisations from here on out is made by the developers from [DARiOX](https://dariox.club)
+
+If you have any problems with up please [send an email](mailto:contact@dariox.club) or [send us a tweet](https://twitter.com/darioxdotclub)
 
 # Discord MusicBot Addon
 ***  
@@ -30,6 +28,9 @@ __Permissions:__
 * If `anyoneCanAdjust` is true, anyone can adjust the volume.
 * If `ownerOverMember` is true, the set ID of the user (`ownerID`) will over-ride permissions from the bot.
 
+__Misc Options:__
+* When `errorChannel` is set and when an error occurs a message is sent to that channel with the error and information about the message (Guild ID, Message ID, Channel ID, User Info, and Message Content)
+
 ***
 # Installation
 ***  
@@ -44,13 +45,13 @@ Allows the bot to join voice as well as speak.
 Required for voice. Discord.js _prefers_ node-opus.  
 
 __Installation:__  
-* `npm install discord.js-musicbot-addon`  
-If you have troubles installing, see [this link](https://github.com/DarkoPendragon/discord.js-musicbot-addon/wiki/Installation-&-Troubleshooting) or [join the discord server](https://discordapp.com/invite/JHMtwhG).
+* `npm i seedbot_addonmusic@latest`  
+If you have troubles installing [join the SeedBot Discord Server](https://seedbot.xyz?p=discord)
 Note that the NPM version will be *slightly behind* the GitHub version.
 
 # Examples
 ***  
-See [this page](https://github.com/DarkoPendragon/discord.js-musicbot-addon/blob/master/examples/examples.md) on the repo for examples.
+See [this page](https://github.com/discordseedbot/seedbot_addonmusic/blob/master/examples/examples.md) on the repo for examples.
 
 # Options & Config.
 ***
@@ -66,6 +67,7 @@ The options you can pass in `music.start(client, {options})` and their types is 
 | bigPicture | Boolean | Whether to use a large (true) image or small (false) for embeds. | false |
 | maxQueueSize | Number | Max queue size allowed. Defaults 100. Set to 0 for unlimited. | 50 |
 | defVolume | Number | The default volume of music. 1 - 200. | 50 |
+| errorChannel (in development) | Number | The discord channel of where you want bot errors to go. Make sure the discord bot is in that server and has permission to send messages there. | NaN |
 | anyoneCanSkip | Boolean | Whether or not anyone can skip. | false |
 | messageHelp | Boolean | Whether to message the user on help command usage. If it can't, it will send it in the channel like normal. | false |
 | botAdmins | Object/Array | An array of Discord user ID's to be admins as the bot. They will ignore permissions for the bot. | [ ] |
@@ -95,7 +97,7 @@ The options you can pass in `music.start(client, {options})` and their types is 
 // Exmaple Map Structure
 {serverID: { prefix: "!" } }
 ```
-See [examples](https://github.com/DarkoPendragon/discord.js-musicbot-addon/blob/master/examples/examples.md) for more info.
+See [examples](https://github.com/discordseedbot/seedbot_addonmusic/blob/master/examples/examples.md) for more info.
 ## Cooldown
 | Option | Type | Description | Default |  
 | --- | --- | --- | --- |
