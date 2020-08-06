@@ -2,6 +2,9 @@
 Note that the NPM version will be behind the GitHub version, but more stable.  
 If any issues arise open an issue, or for a faster response join the [SeedBot Discord server](https://seedbot.xyz?discord).
 ***
+## 13.9.8
+* fucking bug fixes
+
 ## 13.9.7
 * Completed errGen Function
 * Finished Porting to D.js v12
