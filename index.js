@@ -14,7 +14,6 @@ try {
         return true;
       } catch(e){
         // ERROR
-        console.error(e)
       }
       return false;
     };
@@ -251,30 +250,38 @@ try {
         this.recentTalk = new Set();
       }
 
-	  errGen(client,msg,err) {
-	  	  console.error(`[${msg.guild.name}] [${msg.content}] ` + err.stack );
-		  if (this.errorChannel !== undefined) {
-			  // not set
-			  if (client.channels.cache.get(this.errorChannel) !== undefined) {
-				  // can access channel
-				  let errorSend = new Discord.RichEmbed()
-					  .setColor(Math.floor(Math.random() * 16777215).toString(16))
-					  .setTitle("Command Error")
-					  .setFooter(msg.content)
-					  .setTimestamp()
-					  .setDescription(err)
-					  .addField("Guild ID",msg.member.guild.id)
-					  .addField("User Info","<@"+msg.member.id+">")
-				  client.channels.cache.get(this.errorChannel).send(errorSend);
+	errGen(msg,err) {
+		try {
+			var cc = musicbot.client;
+			console.error(`[${msg.guild.name}] [${msg.content}] ${err.stack} `);
+			if (options.errorChannel !== undefined) {
+				// not set
+				var ch;
+				cc.guilds.cache.forEach(m => m.channels.cache.find(c => {
+					if (c.id === options.errorChannel){
+						// can access channel
+						let errorSend = new Discord.MessageEmbed()
+							.setColor(Math.floor(Math.random() * 16777215).toString(16))
+							.setTitle("Command Error")
+							.setFooter(msg.content)
+							.setTimestamp()
+							.setDescription(err)
+							.addField("Guild ID",msg.member.guild.id)
+							.addField("Message ID",msg.id)
+							.addField("Channel ID",msg.channel.id)
+							.addField("User Info","<@"+msg.member.id+">");
+						c.send(errorSend);
 
-				  message.channel.send("Something Went Wrong, A Bug Report has been sent to the developers.\nThey may contact you.");
-			  }
-
-		  } else {
-        message.channel.send("An Internal Error Occoured, Sorry!")
-        console.error(err)
-      }
-	  }
+						msg.channel.send("Something Went Wrong, A Bug Report has been sent to the developers.\nThey may contact you.");
+					}
+				}));
+			} else {
+				msg.channel.send("An Internal Error Occoured, Sorry!")
+			}
+		} catch (e) {
+			console.error(e)
+		}
+	}
 
       checkVoice(mem, bot) {
         return new Promise((resolve, reject) => {
@@ -301,7 +308,7 @@ try {
           try {
             var songs  = typeof obj == "object" ? Array.from(obj.songs) : [];
           } catch (e) {
-            musicbot.errGen(client, msg, e);
+            musicbot.errGen(msg, e);
           };
           try {
             if (!songs || songs.length <= 0 || typeof obj.songs != "object") {
@@ -584,7 +591,7 @@ try {
 
           if (!ignore) {
             if (msg.channel.permissionsFor(msg.guild.me).has('EMBED_LINKS')) {
-              const embed = new Discord.RichEmbed();
+              const embed = new Discord.MessageEmbed();
               try {
                 embed.setAuthor('Adding To Queue', client.user.avatarURL());
                 var songTitle = res.title.replace(/\\/g, '\\\\')
@@ -605,7 +612,7 @@ try {
                   embed
                 });
               } catch (e) {
-				        musicbot.errGen(client,msg,e);
+				  musicbot.errGen(client,msg,e);
               };
             } else {
               try {
@@ -634,7 +641,7 @@ try {
       if (!suffix) {
         if (msg.channel.permissionsFor(msg.guild.me)
           .has('EMBED_LINKS')) {
-          const embed = new Discord.RichEmbed();
+          const embed = new Discord.MessageEmbed();
           embed.setAuthor("Commands", client.user.avatarURL());
           embed.setDescription(`Use \`${prefix}${musicbot.help.name} command name\` for help on usage. Anyone with a role named \`${musicbot.djRole}\` can use any command.`);
           // embed.addField(musicbot.helpCmd, musicbot.helpHelp);
@@ -700,7 +707,7 @@ try {
       } else if (musicbot.commands.has(command) || musicbot.aliases.has(command)) {
         if (msg.channel.permissionsFor(msg.guild.me)
           .has('EMBED_LINKS')) {
-          const embed = new Discord.RichEmbed();
+          const embed = new Discord.MessageEmbed();
           command = musicbot.commands.get(command) || musicbot.aliases.get(command);
           if (command.exclude) return msg.channel.send(musicbot.note('fail', `${suffix} is not a valid command!`));
           embed.setAuthor(command.name, msg.client.user.avatarURL());
@@ -808,7 +815,7 @@ try {
 
       if (msg.channel.permissionsFor(msg.guild.me)
         .has('EMBED_LINKS')) {
-        const embed = new Discord.RichEmbed();
+        const embed = new Discord.MessageEmbed();
         try {
           embed.setAuthor('Now Playing', client.user.avatarURL());
           var songTitle = queue.last.title.replace(/\\/g, '\\\\')
@@ -879,7 +886,7 @@ try {
       if (suffix) {
         let video = queue.songs.find(s => s.position == parseInt(suffix) - 1);
         if (!video) return msg.channel.send(musicbot.note("fail", "Couldn't find that video."));
-        const embed = new Discord.RichEmbed()
+        const embed = new Discord.MessageEmbed()
         .setAuthor('Queued Song', client.user.avatarURL())
         .setColor(musicbot.embedColor)
         .addField(video.channelTitle, `[${video.title.replace(/\\/g, '\\\\').replace(/\`/g, '\\`').replace(/\*/g, '\\*').replace(/_/g, '\\_').replace(/~/g, '\\~').replace(/`/g, '\\`')}](${video.url})`, musicbot.inlineEmbeds)
@@ -903,7 +910,7 @@ try {
             if (i !== undefined) pages.push(i)
           });
 
-          const embed = new Discord.RichEmbed();
+          const embed = new Discord.MessageEmbed();
           embed.setAuthor('Queued Songs', client.user.avatarURL());
           embed.setColor(musicbot.embedColor);
           embed.setFooter(`Page ${page} of ${pages.length}`);
@@ -933,14 +940,14 @@ try {
         } else {
           try {
             var newSongs = musicbot.queues.get(msg.guild.id).songs.map((video, index) => (`**${video.position + 1}:** __${video.title.replace(/\\/g, '\\\\').replace(/\`/g, '\\`').replace(/\*/g, '\\*').replace(/_/g, '\\_').replace(/~/g, '\\~').replace(/`/g, '\\`')}__`)).join('\n\n');
-            const embed = new Discord.RichEmbed();
+            const embed = new Discord.MessageEmbed();
             embed.setAuthor('Queued Songs', client.user.avatarURL());
             embed.setColor(musicbot.embedColor);
             embed.setDescription(newSongs);
             embed.setFooter(`Page 1 of 1`, msg.author.displayAvatarURL());
             return msg.channel.send(embed);
           } catch (e) {
-            console.log("["+msg.guild.id+"] " + e);
+            musicbot.errGen(msg, e);
             return msg.channel.send(msicbot.note("fail", "Something went wrong mapping out the queue! Please delete the queue if this persists."));
           };
         };
@@ -969,7 +976,7 @@ try {
 
               const startTheFun = async (videos, max) => {
                 if (msg.channel.permissionsFor(msg.guild.me).has('EMBED_LINKS')) {
-                  const embed = new Discord.RichEmbed();
+                  const embed = new Discord.MessageEmbed();
                   embed.setTitle(`Choose Your Video`);
                   embed.setColor(musicbot.embedColor);
                   var index = 0;
@@ -1089,7 +1096,7 @@ try {
 
                         videos[song_number].requester = msg.author.id;
                         videos[song_number].position = queue.songs.length ? queue.songs.length : 0;
-                        var embed = new Discord.RichEmbed();
+                        var embed = new Discord.MessageEmbed();
                         embed.setAuthor('Adding To Queue', client.user.avatarURL());
                         var songTitle = videos[song_number].title.replace(/\\/g, '\\\\')
                         .replace(/\`/g, '\\`')
@@ -1229,7 +1236,7 @@ try {
 
                         videos[song_number].requester = msg.author.id;
                         videos[song_number].position = queue.songs.length ? queue.songs.length : 0;
-                        var embed = new Discord.RichEmbed();
+                        var embed = new Discord.MessageEmbed();
                         embed.setAuthor('Adding To Queue', client.user.avatarURL());
                         var songTitle = videos[song_number].title.replace(/\\/g, '\\\\')
                         .replace(/\`/g, '\\`')
@@ -1435,9 +1442,9 @@ try {
         if (voiceConnection !== null) return voiceConnection.disconnect();
       };
 
-      new Promise((resolve, reject) => {
-          const voiceConnection = client.voice.connections.find(val => val.channel.guild.id == msg.guild.id);
-          if (voiceConnection === null) {
+      new Promise( async (resolve, reject) => {
+		  const voiceConnection = client.voice.connections.find(val => val.channel.guild.id == msg.guild.id);
+          if (musicbot) {
             if (msg.member.voice.channel && msg.member.voice.channel.joinable) {
               msg.member.voice.channel.join()
                 .then(connection => {
@@ -1457,7 +1464,7 @@ try {
           } else {
             resolve(voiceConnection);
           }
-        }).then(connection => {
+	  }).then(async connection => {
           let video;
           if (!queue.last) {
             video = queue.songs[0];
@@ -1501,7 +1508,7 @@ try {
               if (musicbot.musicPresence) musicbot.updatePresence(queue, msg.client, musicbot.clearPresence).catch((res) => { console.warn(`[MUSIC] Problem updating MusicPresence`); });
             });
 
-            let dispatcher = connection.play(ytdl(video.url, {
+            let dispatcher = await connection.play(ytdl(video.url, {
               filter: 'audioonly',
               quality: 'highestaudio'
             }), {
@@ -1510,13 +1517,13 @@ try {
             })
 
             connection.on('error', (error) => {
-              musicbot.errGen(client, msg, e);
+              console.error(error);
               if (msg && msg.channel) msg.channel.send(musicbot.note('fail', `Something went wrong with the connection. Retrying queue...`));
               musicbot.executeQueue(msg, queue);
             });
 
             dispatcher.on('error', (error) => {
-              musicbot.errGen(client, msg, e);
+              console.error(error);
               if (msg && msg.channel) msg.channel.send(musicbot.note('fail', `Something went wrong while playing music. Retrying queue...`));
               musicbot.executeQueue(msg, queue);
             });
@@ -1526,7 +1533,7 @@ try {
               console.log(d);
             });
 
-            dispatcher.on('end', () => {
+            dispatcher.on('finish', () => {
               setTimeout(() => {
                 if (musicbot.queues.get(queue.id).needsRefresh) {
                   queue = musicbot.queues.get(queue.id);
@@ -1564,7 +1571,7 @@ try {
               }, 1250);
             });
           } catch (error) {
-            console.log(error);
+            musicbot.errGen(msg, error);
           }
         })
         .catch((error) => {
@@ -1594,7 +1601,7 @@ try {
         .replace(/~/g, '\\~')
         .replace(/`/g, '\\`');
       } else {
-        musicbot.errGen(client, msg, `${type} was an invalid type`);
+        musicbot.errGen(msg, `${type} was an invalid type`);
         //console.error(new Error(`${type} was an invalid type`));
       }
     };
