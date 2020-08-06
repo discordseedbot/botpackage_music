@@ -2,6 +2,10 @@
 Note that the NPM version will be behind the GitHub version, but more stable.  
 If any issues arise open an issue, or for a faster response join [the Discord server](https://discord.gg/JHMtwhG).
 ***
+## 13.9.7
+* Completed errGen Function
+* Finished Porting to D.js v12
+
 ## 13.9.1
 * Merged PR #133
 * Updated ytdl-core
