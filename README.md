@@ -35,8 +35,8 @@ __Misc Options:__
 # Installation
 ***  
 __Pre-installation:__  
-1. `npm install discord.js`  
-It is recommended to have the stable branch.  
+1. `npm install discord.js@12`  
+Jokes on you dako it works on D.JS v12
 
 2. `ffmpeg installed` __correctly__ for your OS/env.  
 Allows the bot to join voice as well as speak.  
