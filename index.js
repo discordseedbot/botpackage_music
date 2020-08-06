@@ -265,7 +265,7 @@ try {
 							.setTitle("Command Error")
 							.setFooter(msg.content)
 							.setTimestamp()
-							.setDescription(err)
+							.setDescription(err.toString())
 							.addField("Guild ID",msg.member.guild.id)
 							.addField("Message ID",msg.id)
 							.addField("Channel ID",msg.channel.id)
