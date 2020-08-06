@@ -2,3 +2,5 @@
 .config
 node_modules
 changelog.md
+testing.js
+examples/
