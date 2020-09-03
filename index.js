@@ -352,7 +352,7 @@ try {
       };
 
       isAdmin(member) {
-        if (member.roles.find(r => r.name == this.djRole)) return true;
+        if (member.roles.cache.find(r => r.name == this.djRole)) return true;
         if (this.ownerOverMember && member.id === this.botOwner) return true;
         if (this.botAdmins.includes(member.id)) return true;
         return member.hasPermission("ADMINISTRATOR");
