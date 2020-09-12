@@ -1492,7 +1492,7 @@ try {
           if (musicbot.messageNewSong == true && queue.last && queue.loop !== "song") {
             let req = client.users.cache.get(video.requester);
             if (msg.channel.permissionsFor(msg.guild.me).has('EMBED_LINKS')) {
-              const embed = new Discord.RichEmbed()
+              const embed = new Discord.MessageEmbed()
               .setTitle("Now Playing", `${req !== null ? req.displayAvatarURL : null}`)
               .setThumbnail(`https://img.youtube.com/vi/${video.id}/maxresdefault.jpg`)
               .setDescription(`[${video.title.replace(/\\/g, '\\\\').replace(/\`/g, '\\`').replace(/\*/g, '\\*').replace(/_/g, '\\_').replace(/~/g, '\\~').replace(/`/g, '\\`')}](${video.url}) by [${video.channelTitle}](${video.channelURL})`)
