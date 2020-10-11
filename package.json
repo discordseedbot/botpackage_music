@@ -1,6 +1,6 @@
 {
   "name": "seedbot_addonmusic",
-  "version": "13.9.12",
+  "version": "13.9.16",
   "description": "A simple Node.js based music extension/bot for Discord.js projects using YouTube.",
   "main": "index.js",
   "scripts": {
@@ -11,7 +11,7 @@
     "discord.js": "^12.2.0",
     "opusscript": "0.0.7",
     "ytdl-core": "^2.1.7",
-    "ytpl": "^0.1.22",
+    "ytpl": "^1.0.0",
     "ytsearcher": "^1.2.2"
   },
   "repository": {
