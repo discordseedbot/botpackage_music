@@ -1,35 +1,55 @@
 {
-  "name": "seedbot_addonmusic",
-  "version": "13.9.17",
-  "description": "A simple Node.js based music extension/bot for Discord.js projects using YouTube.",
-  "main": "index.js",
-  "scripts": {
-    "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "dependencies": {
-    "discord.js": "^12.4.1",
-    "opusscript": "0.0.7",
-    "ytdl-core": "^4.0.5",
-    "ytpl": "^1.0.1",
-    "ytsearcher": "^1.2.3"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/discordseedbot/seedbot_addonmusic"
-  },
-  "bugs": {
-    "url": "https://github.com/discordseedbot/seedbot_addonmusic/issues"
-  },
-  "homepage": "https://github.com/discordseedbot/seedbot_addonmusic",
-  "keywords": [
-    "discord",
-    "discord.js",
-    "music",
-    "bot",
-    "addon",
-    "plugin"
-  ],
-  "author": "discordseedbot [contact@dariox.club]",
-  "license": "ISC"
+	"name": "sbpkg_music",
+	"version": "13.9.19",
+	"description": "Simple Node.JS Module that is a extension/standalone bot for Discord.JS for Youtube.",
+	"main": "index.js",
+	"scripts": {
+		"start": "node index.js",
+		"test": "node testing.js"
+	},
+	"dependencies": {
+		"ytdl-core": "^4.0.6",
+		"ytpl": "^0.1.18",
+		"ytsearcher": "^1.2.2"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/discordseedbot/botpackage_music"
+	},
+	"bugs": {
+		"url": "https://github.com/discordseedbot/botpackage_music/issues"
+	},
+	"homepage": "https://github.com/discordseedbot/botpackage_music",
+	"keywords": [
+		"discord",
+		"discord.js",
+		"music",
+		"bot",
+		"addon",
+		"plugin"
+	],
+	"contributors": [
+		"DarkoPendragon",
+		"mcao",
+		"trolhamonas",
+		"Rodabaugh",
+		"wzhouwzhou",
+		"jylescoad-ward",
+		"NightcoreRYT",
+		"sslp",
+		"kaimoe",
+		"dkmonaghan",
+		"WilsontheWolf",
+		"TheTimmaeh",
+		"MrBoombastic",
+		"DarkoPentagon",
+		"CyaOnDaNet",
+		"Crow08",
+		"BannerBomb"
+	],
+	"license": "ISC",
+	"devDependencies": {
+		"discord.js": "^12.5.0",
+		"opusscript": "0.0.7"
+	}
 }
