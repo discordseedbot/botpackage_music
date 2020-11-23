@@ -1,6 +1,6 @@
 # NPM Version Change Log
 Note that the NPM version will be behind the GitHub version, but more stable.  
-If any issues arise open an issue, or for a faster response join the [SeedBot Discord server](https://seedbot.xyz?discord).
+If any issues arise open an issue, or for a faster response join the [SeedBot Discord server](https://seedbot.xyz?p=discord).
 ***
 ## 13.9.9
 * Updated default queue size to 250 per server
