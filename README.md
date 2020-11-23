@@ -7,8 +7,8 @@ If you have any problems with up please [send an email](mailto:contact@dariox.cl
 
 <div align="center">
   <p>
-    <a href="https://nodei.co/npm/seedbot_addonmusic
-/"><img src="https://nodei.co/npm/seedbot_addonmusic.png?downloads=true&stars=true" alt="NPM info" /></a>
+    <a href="https://nodei.co/npm/sbpkg_music
+/"><img src="https://nodei.co/npm/sbpkg_music.png?downloads=true&stars=true" alt="NPM info" /></a>
   </p>
 </div> 
 
@@ -43,22 +43,22 @@ __Misc Options:__
 ***  
 __Pre-installation:__  
 1. `npm install discord.js@12`  
-Jokes on you dako it works on D.JS v12
+Jokes on you Darko it works on D.JS v12
 
 2. `ffmpeg installed` __correctly__ for your OS/env.  
 Allows the bot to join voice as well as speak.  
 
 3. `npm install node-opus` or `npm install opusscript`  
-Required for voice. Discord.js _prefers_ node-opus.  
+Required for voice. Discord.js _prefers_ node-opus, but `opusscript` is much more easy.  
 
 __Installation:__  
-* `npm i seedbot_addonmusic@latest`  
+* `npm i sbpkg_music@latest`  
 If you have troubles installing [join the SeedBot Discord Server](https://seedbot.xyz?p=discord)
 Note that the NPM version will be *slightly behind* the GitHub version.
 
 # Examples
 ***  
-See [this page](https://github.com/discordseedbot/seedbot_addonmusic/blob/master/examples/examples.md) on the repo for examples.
+See [this page](https://github.com/discordseedbot/botpackage_music/blob/master/examples/examples.md) on the repo for examples.
 
 # Options & Config.
 ***
@@ -68,34 +68,33 @@ The options you can pass in `music.start(client, {options})` and their types is 
 ## Basic Options.
 | Option | Type | Description | Default |  
 | --- | --- | --- | --- |
-| youtubeKey | String | A YouTube Data API3 key. Required to run. | NaN |
+| youtubeKey | String | A YouTube Data API3 key. Required to run. | undefined |
 | botPrefix | String | The prefix of the bot. Defaults to "!". Can also be a Map of prefix's. | ! |
 | messageNewSong | Boolean | Whether or not to send a message when a new song starts playing. | true |
 | bigPicture | Boolean | Whether to use a large (true) image or small (false) for embeds. | false |
-| maxQueueSize | Number | Max queue size allowed. Defaults 100. Set to 0 for unlimited. | 50 |
+| maxQueueSize | Number | Max queue size allowed. Defaults 100. Set to 0 for unlimited. | 250 |
 | defVolume | Number | The default volume of music. 1 - 200. | 50 |
-| errorChannel (in development) | Number | The discord channel of where you want bot errors to go. Make sure the discord bot is in that server and has permission to send messages there. | NaN |
+| errorChannel (in development) | Number | The discord channel of where you want bot errors to go. Make sure the discord bot is in that server and has permission to send messages there. | undefined |
 | anyoneCanSkip | Boolean | Whether or not anyone can skip. | false |
 | messageHelp | Boolean | Whether to message the user on help command usage. If it can't, it will send it in the channel like normal. | false |
-| botAdmins | Object/Array | An array of Discord user ID's to be admins as the bot. They will ignore permissions for the bot. | [ ] |
+| botAdmins | Object/Array | An array of Discord user ID's to be admins as the bot. They will ignore permissions for the bot. | undefined |
 | anyoneCanAdjust | Boolean | Whether anyone can adjust volume. | false |
 | ownerOverMember | Boolean | Whether the owner over-rides `CanAdjust` and `CanSkip`. | false |
 | anyoneCanLeave | Boolean | Whether anyone can make the bot leave the currently connected channel. | false |
-| ownerID | String | The ID of the Discord user to be seen as the owner. Required if using `ownerOverMember`. | NaN |
+| ownerID | String | The ID of the Discord user to be seen as the owner. Required if using `ownerOverMember`. | undefined |
 | logging | Boolean | Some extra none needed logging (such as caught errors that didn't crash the bot, etc). | true |
 | requesterName | Boolean | Whether or not to display the username of the song requester. | true |
 | inlineEmbeds | Boolean | Whether or not to make embed fields inline (help command and some fields are excluded). | false |
 | musicPresence | Boolean | Whether or not to make the bot set its presence to currently playing music. | false |
 | clearPresence | Boolean | Whether or not to clear the presence instead of setting it to "nothing" | false |
 | insertMusic | Boolean | Whether or not to insert the music bot data into `<Client>.music` on start. | false |
-| channelWhitelist | Object/Array | Sets a list of ID's allow when running messages. | [ ] |
-| channelBlacklist | Object/Array | Sets a list of ID's ignore when running messages. | [ ] |
-| bitRate | String | Sets the preferred bitRate for the Discord.js stream to use. | "120000" |
-| nextPresence | [PresenceData](https://discord.js.org/#/docs/main/stable/typedef/PresenceData) | PresenceData to set after instead of clearing it (clearPresence). | null |
+| channelWhitelist | Object/Array | Sets a list of ID's allow when running messages. | undefined |
+| channelBlacklist | Object/Array | Sets a list of ID's ignore when running messages. | undefined |
+| bitRate | String | Sets the preferred bitRate for the Discord.js stream to use. | "96000" |
+| nextPresence | [PresenceData](https://discord.js.org/#/docs/main/stable/typedef/PresenceData) | PresenceData to set after instead of clearing it (clearPresence). | undefined |
 
 ## Multi-Prefix Option Example
 ```js
-<Client>.guilds.forEach
 <Music>.start(<Client>, {
   youtubeKey: "Data Key",
   botPrefix: <MapObject>
@@ -104,7 +103,7 @@ The options you can pass in `music.start(client, {options})` and their types is 
 // Exmaple Map Structure
 {serverID: { prefix: "!" } }
 ```
-See [examples](https://github.com/discordseedbot/seedbot_addonmusic/blob/master/examples/examples.md) for more info.
+See [examples](https://github.com/discordseedbot/botpackage_music/blob/master/examples/examples.md) for more info.
 ## Cooldown
 | Option | Type | Description | Default |  
 | --- | --- | --- | --- |
