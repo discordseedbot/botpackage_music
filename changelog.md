@@ -2,6 +2,11 @@
 Note that the NPM version will be behind the GitHub version, but more stable.  
 If any issues arise open an issue, or for a faster response join the [SeedBot Discord server](https://seedbot.xyz?discord).
 ***
+## 13.9.9
+* Updated default queue size to 250 per server
+* Lowered Bitrate to 96kbps
+* Put playlist handler inside of try catch
+
 ## 13.9.7
 * Completed errGen Function
 * Finished Porting to D.js v12

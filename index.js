@@ -216,7 +216,7 @@ try {
 		if (options.maxQueueSize === 0) {
 		  this.maxQueueSize = 0;
 		} else {
-		  this.maxQueueSize = (options && options.maxQueueSize) || 50;
+		  this.maxQueueSize = (options && options.maxQueueSize) || 250;
 		}
 		this.ownerOverMember = (options && typeof options.ownerOverMember !== 'undefined' ? options && options.ownerOverMember : false);
 		this.botAdmins = (options && options.botAdmins) || [];
@@ -234,7 +234,7 @@ try {
 		this.channelWhitelist = (options && options.channelWhitelist) || [];
 		this.channelBlacklist = (options && options.channelBlacklist) || [];
 		this.minShuffle = (options && options.shuffle) || 3;
-		this.bitRate = (options && options.bitRate) || "120000";
+		this.bitRate = (options && options.bitRate) || "96000";
 		this.userSearching = new Map();
 
 		// Cooldown Settings
@@ -536,30 +536,35 @@ try {
 		if (playid.toString()
 		.includes('&t=')) playid = playid.split('&t=')[0];
 
+		try {
 		ytpl(playid, {limit: musicbot.maxQueueSize}, function(err, playlist) {
-		  if(err) return msg.channel.send(musicbot.note('fail', `Something went wrong fetching that playlist!`));
-		  if (playlist.items.length <= 0) return msg.channel.send(musicbot.note('fail', `Couldn't get any videos from that playlist.`));
-		  if (playlist.total_items >= musicbot.maxQueueSize && musicbot.maxQueueSize != 0) return msg.channel.send(musicbot.note('fail', `Too many videos to queue. A maximum of ` + musicbot.maxQueueSize + ` is allowed.`));
-		  var index = 0;
-		  var ran = 0;
-		  var queue = musicbot.getQueue(msg.guild.id);
-
-		  playlist.items.forEach(async (video) => {
-			ran++;
-			if (queue.songs.length == (musicbot.maxQueueSize + 1) && musicbot.maxQueueSize !== 0 || !video) return;
-			video.url = video.url_simple ? video.url_simple : `https://www.youtube.com/watch?v=` + video.id;
-			musicbot.playFunction(msg, video.url, [], true);
-			index++;
-
-			if (ran >= playlist.items.length) {
-			  console.log(queue);
-			  if (queue.songs.length >= 1) musicbot.executeQueue(msg, queue);
-			  if (index == 0) msg.channel.send(musicbot.note('fail', `Coudln't get any songs from that playlist!`))
-			  else if (index == 1) msg.channel.send(musicbot.note('note', `Queued one song.`));
-			  else if (index > 1) msg.channel.send(musicbot.note('note', `Queued ${index} songs.`));
-			}
-		  });
-		});
+			if(err) return msg.channel.send(musicbot.note('fail', `Something went wrong fetching that playlist!`));
+			if (playlist.items.length <= 0) return msg.channel.send(musicbot.note('fail', `Couldn't get any videos from that playlist.`));
+			if (playlist.total_items >= musicbot.maxQueueSize && musicbot.maxQueueSize != 0) return msg.channel.send(musicbot.note('fail', `Too many videos to queue. A maximum of ` + musicbot.maxQueueSize + ` is allowed.`));
+			var index = 0;
+			var ran = 0;
+			var queue = musicbot.getQueue(msg.guild.id);
+	
+			playlist.items.forEach(async (video) => {
+				ran++;
+				if (queue.songs.length == (musicbot.maxQueueSize + 1) && musicbot.maxQueueSize !== 0 || !video) return;
+				video.url = video.url_simple ? video.url_simple : `https://www.youtube.com/watch?v=` + video.id;
+				musicbot.playFunction(msg, video.url, [], true);
+				index++;
+	
+				if (ran >= playlist.items.length) {
+				console.log(queue);
+				if (queue.songs.length >= 1) musicbot.executeQueue(msg, queue);
+				if (index == 0) msg.channel.send(musicbot.note('fail', `Coudln't get any songs from that playlist!`))
+				else if (index == 1) msg.channel.send(musicbot.note('note', `Queued one song.`));
+				else if (index > 1) msg.channel.send(musicbot.note('note', `Queued ${index} songs.`));
+				}
+			});
+			});
+		} catch (e) {
+			this.errGen(msg,e);
+		}
+		
 	  } else {
 		if (!ignore) msg.channel.send(musicbot.note("search", `\`Searching: ${searchstring}\`~`));
 		new Promise(async (resolve, reject) => {

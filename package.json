@@ -1,6 +1,6 @@
 {
 	"name": "sbpkg_music",
-	"version": "13.9.8",
+	"version": "13.9.9",
 	"description": "A simple Node.js based music extension/bot for Discord.js projects using YouTube.",
 	"main": "index.js",
 	"scripts": {
