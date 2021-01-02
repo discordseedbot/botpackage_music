@@ -1,0 +1,16 @@
+{
+	"undefinedConfig": "No Config Given",
+	"createdLogHistory": "Created Debug Log History",
+	"createdCallbacks": "Created Callback Index",
+	"doneInit": "Module Initialization Done",
+	"calledInit": "Module Initialization Called",
+	"cannotStart": "Music Bot cannot start due to a logical error.",
+	"clientSaved": "Client Object Saved into Memory",
+	"clientReady": "Client Connected to Discord",
+	"callbackExists": "Callback Already Exists, Skipping",
+	"callbackAdded": "New Callback Added to Memory",
+	"callbackRan": "[%type%] Callback Ran",
+	"callbackUndefined": "Callback is undefined",
+	"callbacksUpdated": "Callback List Updated",
+	"callbacksEmpty": "No Callbacks have been created"
+}
